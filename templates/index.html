@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mumbai Flat Rate Prediction Model</title>
+<style>
+body {
+    background-image:url('https://images.moneycontrol.com/static-mcnews/2021/03/Lodha123.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    color: #fff; /* Sets text color to white for better contrast */
+    font-family: Arial, sans-serif; /* Sets a basic font */
+    overflow: hidden; /* Prevents scrollbars if the background image is too large */
+}
+
+
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.blinking-text {
+    animation: blink 1s infinite;
+}
+
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.form-container select:hover {
+    border-color: #888;
+}
+
+.form-container select:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.form-container select:disabled {
+    background-color: #e9e9e9;
+    color: #999;
+}
+
+.form-container {
+    max-width: 400px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.8); /* Black background with some opacity */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Adds a modern shadow effect */
+    color: white; /* Text color white */
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.form-container h2 {
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.form-container label {
+    font-size: 1.1em;
+    color: white;
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-container input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    font-family: 'Arial', sans-serif;
+}
+
+.form-container input[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.result {
+    font-size: 25px;
+    color: greenyellow;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0;
+    font-family: 'Arial', sans-serif;
+}
+</style>
+</head>
+<body>
+<div class="background-image"></div>    
+<div class="form-container">
+    <h2><u>Mumbai Flats Rate Prediction</u></h2>
+    {% if prediction_text %}
+    <div class="result blinking-text">{{ prediction_text }}</div>
+    {% endif %}
+    <form action="/predict" method="post">
+        <label for="Flat_Type">Flat Type:</label>
+        <select name="Flat_Type" required>
+            <option value="" disabled selected>Select Flat</option>
+            <option value="0">1 BHK</option>
+            <option value="1">2 BHK</option>
+            <option value="2">3 BHK</option>
+            <option value="3">4 BHK</option>
+            <option value="4">5 BHK</option>
+            <option value="5">6 BHK</option>
+        </select>
+
+        <label for="Location">Location:</label>
+        <select name="location" id="location" required>
+            <option value="" disabled selected>Select Location</option>
+            <option value="0">Agripada</option>
+            <option value="1">Andheri East</option>
+            <option value="2">Andheri West</option>
+            <option value="3">Bandra East</option>
+            <option value="4">Bandra West</option>
+            <option value="5">Bhandup East</option>
+            <option value="6">Bhandup West</option>
+            <option value="7">Bhayandar East</option>
+            <option value="8">Bhayandar West</option>
+            <option value="9">Boisar</option>
+            <option value="10">Borivali East</option>
+            <option value="11">Borivali West</option>
+            <option value="12">Byculla</option>
+            <option value="13">Chembur</option>
+            <option value="14">Churchgate</option>
+            <option value="15">Colaba</option>
+            <option value="16">Cuffe Parade</option>
+            <option value="17">Cumballa Hill</option>
+            <option value="18">Dadar East</option>
+            <option value="19">Dadar West</option>
+            <option value="20">Dahisar East</option>
+            <option value="21">Dahisar West</option>
+            <option value="22">Ghatkopar East</option>
+            <option value="23">Ghatkopar West</option>
+            <option value="24">Girgaon</option>
+            <option value="25">Goregaon East</option>
+            <option value="26">Goregaon West</option>
+            <option value="27">Govandi</option>
+            <option value="28">Jogeshwari East</option>
+            <option value="29">Jogeshwari West</option>
+            <option value="30">Kamathipura</option>
+            <option value="31">Kandivali East</option>
+            <option value="32">Kandivali West</option>
+            <option value="33">Kanjurmarg East</option>
+            <option value="34">Kanjurmarg West</option>
+            <option value="35">Khar West</option>
+            <option value="36">Kurla East</option>
+            <option value="37">Kurla West</option>
+            <option value="38">Lower Parel</option>
+            <option value="39">Madanpura</option>
+            <option value="40">Madh</option>
+            <option value="41">Mahalakshmi</option>
+            <option value="42">Mahim</option>
+            <option value="43">Malabar Hill</option>
+            <option value="44">Malad East</option>
+            <option value="45">Malad West</option>
+            <option value="46">Marine Lines</option>
+            <option value="47">Matunga East</option>
+            <option value="48">Matunga West</option>
+            <option value="49">Mazgaon</option>
+            <option value="50">Mira Road East</option>
+            <option value="51">Mulund East</option>
+            <option value="52">Mulund West</option>
+            <option value="53">Mumbai Central</option>
+            <option value="54">Naigaon East</option>
+            <option value="55">Nalasopara East</option>
+            <option value="56">Nalasopara West</option>
+            <option value="57">Others</option>
+            <option value="58">Palghar</option>
+            <option value="59">Parel</option>
+            <option value="60">Powai</option>
+            <option value="61">Prabhadevi</option>
+            <option value="62">Sakinaka</option>
+            <option value="63">Santacruz East</option>
+            <option value="64">Santacruz West</option>
+            <option value="65">Sewri</option>
+            <option value="66">Sion</option>
+            <option value="67">Tardeo</option>
+            <option value="68">Thane West</option>
+            <option value="69">Vasai East</option>
+            <option value="70">Vasai West</option>
+            <option value="71">Vikhroli East</option>
+            <option value="72">Vikhroli West</option>
+            <option value="73">Vile Parle East</option>
+            <option value="74">Vile Parle West</option>
+            <option value="75">Virar East</option>
+            <option value="76">Virar West</option>
+            <option value="77">Wadala</option>
+            <option value="78">Wadala East</option>
+            <option value="79">Worli</option>            
+        </select>
+
+        <label for="sqft">Building Area Sqft.:</label>
+        <input type="number" name="sqft" required>
+
+        <label for="age">Age of Property:</label>
+        <select name="age" required>
+            <option value="" disabled selected>Select Age of Property</option>
+            <option value="4">recent construction</option>
+            <option value="0">mid age property</option>
+            <option value="2">new construction</option>
+            <option value="1">modern property</option>
+            <option value="3">Old Property</option>
+        </select>
+
+
+        <label for="Furnishing">Furnishing:</label>
+        <select name="Furnishing" required>
+            <option value="" disabled selected>Select Furnishing</option>
+            <option value="2">Un-Furnished</option>
+            <option value="1">Semi-Furnished</option>
+            <option value="0">Fully-Furnished</option>
+        </select>
+
+        <label for="Parking">Parking:</label>
+        <select name="Parking" required>
+            <option value="" disabled selected>Parking</option>
+            <option value="1">YES</option>
+            <option value="0">NO</option>
+        </select>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    
+</div>
+</body>
+</html>
